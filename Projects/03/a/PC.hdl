@@ -16,5 +16,18 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    // register load needed for load,inc,reset:
+    Or(a=load, b=reset, out=lrOr);
+    Or(a=inc, b=lrOr, out=setLoad);
+
+    // increment or loop channel
+    Inc16(in=outLoop, out=outInc);
+    Mux16(a=outLoop, b=outInc, sel=inc, out=muxInc);
+
+    // flat input channels
+    Mux16(a=muxInc, b=in, sel=load, out=muxLoadOrInc);
+    Mux16(a=muxLoadOrInc, b=false, sel=reset, out=muxReset);
+
+    // feed register
+    Register(in=muxReset, load=setLoad, out=out, out=outLoop);
 }

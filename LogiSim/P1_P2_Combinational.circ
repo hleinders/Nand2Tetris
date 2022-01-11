@@ -1111,8 +1111,8 @@
       <a name="width" val="16"/>
     </comp>
     <comp lib="1" loc="(390,200)" name="AND Gate">
-      <a name="label" val="AND16"/>
-      <a name="labelfont" val="SansSerif bold 10"/>
+      <a name="label" val="And16"/>
+      <a name="labelfont" val="SansSerif plain 10"/>
       <a name="width" val="16"/>
     </comp>
     <comp lib="1" loc="(510,240)" name="NOT Gate">
@@ -1145,6 +1145,10 @@
     </comp>
     <comp lib="3" loc="(380,260)" name="Adder">
       <a name="width" val="16"/>
+    </comp>
+    <comp lib="8" loc="(81,72)" name="Text">
+      <a name="font" val="SansSerif bold 24"/>
+      <a name="text" val="16-Bit ALU"/>
     </comp>
     <comp loc="(530,140)" name="LB_8WayOr">
       <a name="labelfont" val="SansSerif plain 10"/>
