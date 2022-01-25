@@ -41,7 +41,7 @@ type Parser struct {
 
 // New returns the api interface.
 func New(lg *MyLog.Log, fname string) (*Parser, error) {
-	lg.Bold("\nReading Source: %s", fname)
+	lg.Verbose("\nReading Source: %s", fname)
 	raw, err := os.ReadFile(fname)
 	if err != nil {
 		return nil, fmt.Errorf("could not read source file '%s'", fname)
@@ -151,7 +151,7 @@ func (p *Parser) Parse() (string, error) {
 
 	// Pass 1: resolve labels
 	// creates the parse objects oureSrc and synbolTable
-	p.logger.Bold("Pass 1: resolving labels")
+	p.logger.Verbose("Pass 1: resolving labels")
 	err = p.resolve()
 	if err != nil {
 		return "", err
@@ -164,7 +164,7 @@ func (p *Parser) Parse() (string, error) {
 	cd := code.New()
 
 	// Pass 2: translate the source
-	p.logger.Bold("Pass 2: parsing & compiling")
+	p.logger.Verbose("Pass 2: parsing & compiling")
 	for p.hasMoreLines() {
 		mnemonic := p.advance()
 		it := p.instructionType(mnemonic)
@@ -208,7 +208,7 @@ func (p *Parser) Parse() (string, error) {
 			}
 			jump = cd.Jump(jumpStr)
 
-			opcode = fmt.Sprintf("111%s%s%s", dest, comp, jump)
+			opcode = fmt.Sprintf("111%s%s%s", comp, dest, jump)
 		}
 		mlang = append(mlang, opcode)
 	}

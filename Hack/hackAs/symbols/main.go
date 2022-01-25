@@ -16,7 +16,7 @@ const (
 	symbolMax  = uint16(0x3fff)
 )
 
-var symbolCurrent = symbolBase
+var currentAddress = symbolBase
 
 var predefined map[string]uint16 = map[string]uint16{
 	"R0": 0x0000, "R1": 0x0001, "R2": 0x0002, "R3": 0x0003, "R4": 0x0004, "R5": 0x0005, "R6": 0x0006, "R7": 0x0007,
@@ -39,7 +39,9 @@ func New() *SymbolTable {
 }
 
 func (st *SymbolTable) contains(sbl string) bool {
-	return st.symbol[sbl] != 0
+	_, ok := st.symbol[sbl]
+
+	return ok
 }
 
 // AddEntry is a function to add an entry to the symbol table
@@ -52,14 +54,18 @@ func (st *SymbolTable) AddEntry(sbl string, address uint16) {
 // otherwise it's a variable with a RAM address starting at 16
 func (st *SymbolTable) GetAddress(sbl string) uint16 {
 	if !st.contains(sbl) {
-		st.AddEntry(sbl, symbolCurrent)
-		symbolCurrent++
-		if symbolCurrent >= symbolMax {
+		st.AddEntry(sbl, currentAddress)
+		currentAddress++
+		if currentAddress >= symbolMax {
 			panic("ERR: Symbol Table overflow! Abort!")
 		}
 	}
 
 	return st.symbol[sbl]
+}
+
+func (st *SymbolTable) GetAllSymbols() map[string]uint16 {
+	return st.symbol
 }
 
 func (st *SymbolTable) GetUserSymbols() map[string]uint16 {
