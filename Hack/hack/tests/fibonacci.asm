@@ -44,6 +44,6 @@
     @N
     D=M-D   // test N-I
     @LOOP
-    D;JGE   // jump if >= 0
+    D;JGT   // jump if >= 0
 (END)
     BRK
